@@ -1,5 +1,5 @@
 # cliappearance
-basic Gsettings appearance CLI utility
+Basic gsettings script in bash.
 
 ## Installation
 ```
