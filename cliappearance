@@ -4,7 +4,7 @@ opc=0
 
 while [ $opc -ne 4 ] ; do
 
-## Menu Principal
+## Main Menu
 clear
 echo -e "Choose an option!!!"
 echo
@@ -97,7 +97,7 @@ case $opc in
     sleep 1
     break ;;
 
-### Quit
+### Exit
 	4)clear;;
 	*) echo $opc not valid!1! ;;
 esac
