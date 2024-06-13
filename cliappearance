@@ -6,7 +6,7 @@ while [ $opc -ne 4 ] ; do
 
 ## Main Menu
 clear
-echo -e "Choose an option!!!"
+echo -e "What do you wanna change?"
 echo
 echo "[1] Themes"
 echo "[2] Icons"
