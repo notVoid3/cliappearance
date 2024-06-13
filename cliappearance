@@ -1,0 +1,104 @@
+#!/bin/bash
+
+opc=0
+
+while [ $opc -ne 4 ] ; do
+
+## Menu Principal
+clear
+echo -e "Choose an option!!!"
+echo
+echo "[1] Themes"
+echo "[2] Icons"
+echo "[3] Buttons"
+echo "[4] Quit"
+echo
+
+read -p "Select: " opc
+
+## Sub-Menus
+### Themes
+case $opc in
+	1)clear 
+		echo -e "Select theme: "
+		theme_options=($(find "$HOME/.themes" -type d -name gtk-3.0 -printf '%h\n'))
+                select theme_opt in "${theme_options[@]}"
+                do
+                    if [[ -n $theme_opt ]]; then
+                        echo "$theme_opt Selected!"
+			gsettings set org.gnome.desktop.interface gtk-theme "$theme_opt"                        
+
+			sleep 1
+			break
+		    fi
+                done ;;
+
+
+### Icons
+	2)clear
+	echo -e "Select icons: "
+	icon_options=($(ls $HOME/.icons))
+	select icon_opt in "${icon_options[@]}"
+	do
+	   if [[ -n $icon_opt ]]; then
+                 echo "$icon_opt Selected!"
+                 gsettings set org.gnome.desktop.interface icon-theme "$icon_opt"
+
+                 sleep 1
+                 break
+                    fi
+                done ;;
+
+### Button Layout
+	3)clear
+    echo -e "Buttons: "
+    echo -e "1) Left"
+    echo -e "2) Right"
+    read -p "Select (1 or 2): " position_choice
+
+    if [[ $position_choice -eq 1 ]]; then
+        position="left"
+        button_layout=":"
+    elif [[ $position_choice -eq 2 ]]; then
+        position="right"
+        button_layout=":"
+    else
+        echo "Not valid!"
+        break
+    fi
+
+    clear
+    echo -e "Select button layout (1, 1 2, 1 2 3): "
+    echo -e "1) minimize"
+    echo -e "2) maximize"
+    echo -e "3) close"
+    read -p "Button Layout: " -a actions
+
+    declare -A action_map=( ["1"]="minimize" ["2"]="maximize" ["3"]="close" )
+    selected_actions=()
+
+    for action in "${actions[@]}"; do
+        if [[ -n ${action_map[$action]} ]]; then
+            selected_actions+=("${action_map[$action]}")
+        else
+            echo "Not valid!"
+        fi
+    done
+
+    actions_string=$(IFS=,; echo "${selected_actions[*]}")
+
+    if [[ $position == "left" ]]; then
+        gsettings set org.gnome.desktop.wm.preferences button-layout "$actions_string$button_layout"
+    elif [[ $position == "right" ]]; then
+        gsettings set org.gnome.desktop.wm.preferences button-layout "$button_layout$actions_string"
+    fi
+
+    echo "Buttons Changed!"
+    sleep 1
+    break ;;
+
+### Quit
+	4)clear;;
+	*) echo $opc not valid!1! ;;
+esac
+done
