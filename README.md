@@ -5,7 +5,7 @@ basic Gsettings appearance CLI utility
 ```
 git clone https://github.com/notVoid3/cliappearance.git
 cd cliappearance && chmod +x cliappearance
-,/cliappearance
+./cliappearance
 ```
 ## Options
 ### Themes
