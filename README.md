@@ -19,7 +19,7 @@ This options will display your folders in `$HOME/.icons`.
 This options let you choose your buttons side.
 
 #### Layout
-This option let you choose the button or buttons in your layout. **Write them in the order that you want**.
+This option let you customize the buttons in your layout. **Write them in the desire order**.
 
 ### Exit
 > Do i have to explain this?
